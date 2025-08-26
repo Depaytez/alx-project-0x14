@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export interface LayoutProps {
+export interface ComponentProps {
  children: ReactNode;
 }
 
@@ -12,5 +12,5 @@ export interface MovieCardProps {
 
 export interface ButtonProps {
  title: string;
- action: () => void;
+ action?: () => void;
 }

@@ -1,10 +1,26 @@
 import React from 'react';
+import Link from 'next/link';
+import Button from '@/components/commons/Button';
 
 const Header: React.FC = () => {
  return(
   <div className="container">
-   <header className="header-container">
-    <h1>CineSeek App</h1>
+   <header className="h-28 flex items-center bg-[#171D22] px-4 md:px-16 lg:px-44 text-white header-container">
+    <div className="flex items-center justify-between w-full">
+     <h2 className='text-xl md:text-4xl font-semibold'>Cine<span className="text-[#E2D609]">Seek</span> Seek App</h2>
+     <nav className="hidden md:flex flex-1 justify-center space-x-8">
+      <Link href="/" className="hover:text-[#E2D609] px-4 md:px-8 text-xl transition-colors duration-300 font-semibold">Home</Link>
+      <Link href="/movies" className="hover:text-[#E2D609] px-4 md:px-8 text-xl transition-colors duration-300 font-semibold">Movies</Link>
+      <Link href="/contact" className="hover:text-[#E2D609] px-4 md:px-8 text-xl transition-colors duration-300 font-semibold">Contact</Link>
+     </nav>
+
+     <div className="flex md:hidden">
+      <Button title="Sign In" />
+     </div>
+     <div className="hidden md:flex">
+      <Button title="Sign In" />
+     </div>
+    </div>
    </header>
   </div>
  );
