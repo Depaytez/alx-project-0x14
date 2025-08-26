@@ -16,7 +16,7 @@ const Home: React.FC = () => {
 
         <p className="text-lg md:text-2xl mb-8 max-w-2xl">
           Explore the latest blockbuster movies, critically acclaimed films,
-          and your personal favorites – all in one place.
+          and your personal favorites - all in one place.
         </p>
 
         <Button
