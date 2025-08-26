@@ -7,22 +7,27 @@ The MoviesDatabase API provides comprehensive data for over 9 million titles (mo
 Version: 1.0 (as per current RapidAPI MoviesDatabase documentation on august 25th, 2025).
 
 ## Available Endpoints
-- `/titles`: Fetch a list of movies (titles) with optional filters (year, genre, sort) and pagination.
-- `/titles/{id}`: Retrieve details for a specific movie by ID.
-- `/titles/{id}/ratings`: Gets ratings and votes for a title.
-- `/titles/search/keyword/{keyword}`: Searches titles by keyword.
-- `/titles/search/title/{title}`: Searches titles by title (exact or partial).
-- `/actors`: Lists actors with filters.
-- `/actors/{id}`: Retrieves actor details.
-- `/title/utils/titleType`: Returns title types.
-- `/title/utils/genres`: Returns title genres.
-- `/title/utils/lists`: Returns predefined title lists (e.g., top_rated_250).
-
+- `/titles`: Fetch a list of titles with optional filters (year, genre, sort) and pagination.
+- `/titles/{id}`: Retrieve details for a specific title by IMDb ID.
+- `/titles/x/upcoming`: List upcoming titles with filters.
+- `/titles/{id}/ratings`: Get ratings and votes for a title.
+- `/titles/series/{seriesId}`: Fetch episodes for a series by series ID.
+- `/titles/seasons/{seriesId}`: Return the number of seasons for a series.
+- `/titles/series/{seriesId}/{season}`: List episodes for a specific season.
+- `/titles/episode/{id}`: Retrieve details for a specific episode.
+- `/titles/x/titles-by-ids`: Fetch titles by a list of IDs.
+- `/titles/search/keyword/{keyword}`: Search titles by keyword.
+- `/titles/search/title/{title}`: Search titles by title (exact or partial).
+- `/titles/search/akas/{aka}`: Search titles by exact AKA (case-sensitive).
+- `/actors`: List actors with filters.
+- `/actors/{id}`: Retrieve details for a specific actor by IMDb ID.
+- `/title/utils/titleType`: Return available title types.
+- `/title/utils/genres`: Return available genres.
+- `/title/utils/lists`: Return predefined title lists (e.g., `top_rated_250`).
 
 ## Request and Response Format
 - **Request**: GET/POST requests with optional query parameters (e.g., year, genre, page, limit). Authentication requires `x-rapidapi-key` and `x-rapidapi-host` headers.
    **Example**: `GET /titles?year=2024&genre=Comedy&limit=12&page=1`
-<!-- - **Request**: GET or POST with query parameters (e.g., `year=2023`, `genre=Comedy`) and headers (`x-rapidapi-key`, `x-rapidapi-host`). -->
 
 - **Response**: JSON object with a `results` key (array of titles) and optional `page, next, entries` keys for paginated endpoints  
    **Example**:
@@ -40,16 +45,25 @@ Version: 1.0 (as per current RapidAPI MoviesDatabase documentation on august 25t
     "next": "/titles?page=2",
     "entries": 12
   }
-  
-json```
+  ```
 
 ## Authentication
 - Requires an API key passed via headers: `x-rapidapi-key` and `x-rapidapi-host: moviesdatabase.p.rapidapi.com`.
 - Store the API key in `.env.local` (e.g., `MOVIE_API_KEY=your_key`)
 
 ## Error Handling
-- Common errors: 401 (invalid API key), 429 (rate limit exceeded), 404 (invalid endpoint/ID or failed to connect to internet).
+- Common errors: 401 (invalid API key), 429 (rate limit exceeded), 404 (invalid endpoint/ID or fails to connect to internet).
 - Handle with try/catch in API routes, checking `response.ok` and status codes (e.g., `throw new Error('Failed to fetch')` if not OK).
+**Example**
+```typescript
+try {
+ const response = await fetch('/api/fetch-movies', {method: 'POST'});
+ if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+ const data = await response.json();
+} catch (error) {
+ console.error('Fetch error:', error.message);
+}
+```
 
 ## Usage Limits and Best Practices
 - **Rate Limits**: API enforces request limits; use pagination (`limit`, `page`) to manage load.
