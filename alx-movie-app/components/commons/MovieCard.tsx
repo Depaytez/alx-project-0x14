@@ -13,10 +13,16 @@ const MovieCard: React.FC<MovieCardProps> = ({title, posterImage, releaseYear}) 
      width={100} 
      height={100} 
     />
-
    </div>
-   <h2>{title}</h2>
-   <p>Release Year: {releaseYear}</p>
+
+   <div className="flex justify-between py-4">
+    <p className="text-xl font-bold">
+     Movie Title: {title}
+    </p>
+    <p className="text-xl text-[#E2D609]">
+     Release Year: {releaseYear}
+    </p>
+   </div>
   </div>
  );
 };

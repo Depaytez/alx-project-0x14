@@ -1,19 +1,19 @@
 import Button from "@/components/commons/Button";
 import Loading from "@/components/commons/Loading";
 import MovieCard from "@/components/commons/MovieCard";
-import { MovieCardProps } from "@/interfaces";
-import { useCallback } from "react";
-import { useEffect, useState } from "react";
+// import { MovieCardProps } from "@/interfaces";
+import { MoviesProps } from "@/interfaces";
+import { useCallback, useEffect, useState } from "react";
 
 interface MProps {
- movies: MovieCardProps[];
+ movies: MoviesProps[];
 }
 
 const Movies: React.FC<MProps> = () => {
  const [page, setPage] = useState<number>(1);
  const [year, setYear] = useState<number | null>(null);
  const [genre, setGenre] = useState<string>("All");
- const [movies, setMovies] = useState<MovieCardProps[]>([]);
+ const [movies, setMovies] = useState<MoviesProps[]>([]);
  const [loading, setLoading] = useState<boolean>(false);
 
  const fetchMovies = useCallback(async () => {
@@ -23,16 +23,16 @@ const Movies: React.FC<MProps> = () => {
    body: JSON.stringify({
     page,
     year,
-    genre: genre === "All" ? "" : genre
+    genre: genre === "All" ? "" : genre,
    }),
    headers: {
-    'Content-Type': 'application/json; charset=utf-8'
-   }
-  })
+    'Content-Type': 'application/json; charset=utf-8',
+   },
+  });
 
   if (!response.ok) {
    setLoading(false);
-   throw new Error("Something went wrong")
+   throw new Error("Something went wrong");
   }
 
   const data = await response.json();
@@ -44,7 +44,7 @@ const Movies: React.FC<MProps> = () => {
 
  useEffect(() => {
   fetchMovies()
- }, [fetchMovies])
+ }, [fetchMovies]);
 
  return(
   <div className="min-h-screen bg-[#110F17] text-white px-4 md:px-10 lg:px-44">
@@ -86,7 +86,7 @@ const Movies: React.FC<MProps> = () => {
     {/* Movie output */}
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-10">
      {
-      movies?.map((movie: MovieCardProps, key: number) => (
+      movies?.map((movie: MoviesProps, key: number) => (
        <MovieCard 
         title={movie?.titleText.text}
         posterImage={movie?.primaryImage?.url}
